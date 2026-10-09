@@ -29,11 +29,11 @@ policy "Users manage their own study data"
   with check (auth.uid() = user_id);
 
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
-values ('my-pace-photos', 'my-pace-photos', false, 10485760, array['image/jpeg', 'image/png',
-        'image/webp']) on conflict (id) do
+values ('my-pace-photos', 'my-pace-photos', false, 15728640, array['image/jpeg', 'image/png',
+        'image/webp', 'application/pdf']) on conflict (id) do
 update set
     public = false,
-    file_size_limit = 10485760,
+    file_size_limit = 15728640,
     allowed_mime_types = excluded.allowed_mime_types;
 
 drop

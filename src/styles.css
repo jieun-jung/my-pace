@@ -1127,3 +1127,41 @@ body{font-size:16px}
   .book-daily-accuracy{grid-area:accuracy;font-size:8px}
   .book-daily-accuracy b{font-size:9px}
 }
+.timer-actions{flex-wrap:wrap}
+.timer-actions .skip{min-width:117px;padding:11px 15px;border:1px solid #d8e5f2;border-radius:8px;background:#f3f8ff;color:#526b83;font-size:13px;font-weight:600}
+.timer-actions .skip:hover{border-color:var(--mode-accent,#347bd0);background:var(--mode-soft,#e1efff)}
+.q-progress>div button.skipped{border-color:#ead9b5;background:#fff8e9;color:#987128}
+.skipped-label{display:inline-flex;flex-direction:column;align-items:center;gap:2px;min-width:58px;margin-left:0;padding:4px 6px;border:1px solid #ecd9ac;border-radius:7px;background:#fff8e9;color:#8d6a20;font-size:10px;font-weight:700;line-height:1.2;white-space:nowrap}
+.grade-time .skipped-label{align-items:center;text-align:center;transform:translateX(-3px)}
+.focus-tools{display:flex;flex-direction:column;align-items:center;gap:8px}
+.mid-grade{padding:9px 13px;border:1px solid #b7cfe9;border-radius:8px;background:#edf5ff;color:#35699f;font-size:12px;font-weight:700;white-space:nowrap}
+.mid-grade:hover{border-color:#7da8d4;background:#e1efff}
+@media(max-width:650px){.timer-actions .skip{min-width:105px;padding:11px 8px;font-size:9px}.skipped-label{font-size:9px}}
+@media(max-width:650px){.focus-tools{gap:6px;align-items:flex-end}.mid-grade{padding:8px 9px;font-size:10px}.focus-count{padding:8px 9px}.skipped-label{min-width:54px;margin:0;padding:3px 5px;font-size:9px}}
+.answer-file-link{width:100%;min-width:0;margin:10px 0;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid #d8e5f2;border-radius:8px;background:#f3f8ff;color:#35699f;text-align:left;font-size:12px;font-weight:700}
+.answer-file-link:hover{border-color:#9dbce0;background:#e9f3ff}
+.answer-file-link span{min-width:0;overflow:hidden;color:#6e8297;font-size:11px;font-weight:500;text-overflow:ellipsis;white-space:nowrap}
+.book-card .answer-file-link{margin:14px 0 0}
+@media(max-width:650px){.answer-file-link{padding:9px;font-size:10px}.answer-file-link span{font-size:9px}}
+.book-metrics>div:nth-child(2) b{white-space:nowrap;font-size:20px}
+.book-metrics>div:nth-child(2) b i{font-size:11px}
+.book-daily-progress span{min-width:86px;white-space:nowrap;font-size:9px}
+@media(max-width:650px){.book-metrics>div:nth-child(2) b{font-size:17px}.book-metrics>div:nth-child(2) b i{font-size:10px}.book-daily-progress span{min-width:86px;font-size:9px}}
+
+.retry-toggle{display:grid;grid-template-columns:64px 178px 58px;align-items:center;gap:10px;margin-top:14px;padding-top:12px;border-top:1px solid #e5edf5;color:#345f83;font-size:12px}
+.retry-toggle>b{font-size:13px}
+.retry-circles{display:flex;align-items:center;gap:7px}
+.retry-circles button{width:30px;height:30px;padding:0;border:1px solid #bfd4e6;border-radius:50%;background:#fff;color:#69839a;font-size:12px;font-weight:700;transition:background .15s,border-color .15s,color .15s}
+.retry-circles button.selected{border-color:#367fba;background:#367fba;color:#fff}
+.retry-circles button:focus-visible{outline:2px solid #8fbce0;outline-offset:2px}
+.retry-toggle>span{color:#1769a8;font-size:13px;font-weight:800;font-variant-numeric:tabular-nums}
+@media(max-width:650px){.retry-toggle{grid-template-columns:52px minmax(0,1fr) 50px;gap:6px}.retry-circles{gap:4px}.retry-circles button{width:25px;height:25px;font-size:10px}.retry-toggle>span{font-size:11px}}
+.wrong-question-number{flex:0 0 auto;min-width:46px;padding:6px 9px;border:1px solid #bdd8ee;border-radius:8px;background:#edf6ff;color:#1769a8!important;text-align:center;font-size:17px!important;font-weight:800;font-variant-numeric:tabular-nums}
+.wrong-question-number i{margin-left:1px;font-size:11px;font-style:normal}
+.wrong-head>.wrong-time{flex:0 0 auto;min-width:42px;text-align:right;color:#7c7e73;font-size:12px}
+@media(max-width:650px){.wrong-question-number{min-width:40px;padding:6px;font-size:15px!important}.wrong-question-number i{font-size:10px}.wrong-head>.wrong-time{min-width:36px;font-size:10px}}
+.book-menu-icon,.report-menu-icon{width:18px;height:18px;vertical-align:middle;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.hint-toggle{color:#64834d}
+.hint-toggle .retry-circles button{border-color:#d2e3c4;background:#f8fcf4;color:#748f63}
+.hint-toggle .retry-circles button.selected{border-color:#9dbb82;background:#c4dda9;color:#35502b}
+.hint-toggle>span{color:#64834d}

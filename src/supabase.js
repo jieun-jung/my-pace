@@ -125,6 +125,38 @@ async function dataUrlFromPhoto(path) {
   });
 }
 
+export async function uploadWorkbookAnswerFile(bookId, file) {
+  const session = readAuthSession();
+  if (!session?.user?.id) throw new Error("로그인이 필요해요.");
+  if (file.size > 15 * 1024 * 1024) throw new Error("정답 파일은 15MB 이하만 등록할 수 있어요.");
+  const extension = file.name.split(".").pop()?.toLowerCase() || "";
+  const allowedTypes = new Set(["application/pdf", "image/jpeg", "image/png", "image/webp"]);
+  const fallbackTypes = { pdf: "application/pdf", jpg: "image/jpeg", jpeg: "image/jpeg", png: "image/png", webp: "image/webp" };
+  const contentType = file.type || fallbackTypes[extension];
+  if (!allowedTypes.has(contentType)) throw new Error("PDF, JPG, PNG, WEBP 파일만 등록할 수 있어요.");
+  const path = `${session.user.id}/answers/${bookId}`;
+  await apiRequest(`/storage/v1/object/${PHOTO_BUCKET}/${path}`, {
+    method: "POST",
+    headers: { "Content-Type": contentType, "x-upsert": "true" },
+    body: file,
+  });
+  return { answerFilePath: path, answerFileName: file.name, answerFileType: contentType };
+}
+
+export async function downloadWorkbookAnswerFile(path) {
+  const response = await apiRequest(`/storage/v1/object/${PHOTO_BUCKET}/${path}`);
+  return response.blob();
+}
+
+export async function removeWorkbookAnswerFile(path) {
+  if (!path) return;
+  await apiRequest(`/storage/v1/object/${PHOTO_BUCKET}`, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ prefixes: [path] }),
+  });
+}
+
 async function hydratePhoto(item) {
   if (!item.photoPath) return;
   try {

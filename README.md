@@ -13,7 +13,7 @@ npm run build 명령으로 정적 배포용 파일을 생성할 수 있습니다
 
 ## 서버 저장 설정
 
-앱은 Supabase Auth로 로그인하고, 사용자별 학습 데이터는 `user_data` 테이블에 저장합니다. 문제집 표지와 오답 사진은 비공개 `my-pace-photos` 버킷에 저장되며, SQL에 포함된 RLS 정책으로 로그인한 계정 소유의 데이터와 파일만 접근할 수 있습니다. 브라우저에 키를 노출하지 않도록 Supabase service role key는 사용하지 마세요.
+앱은 Supabase Auth로 로그인하고, 사용자별 학습 데이터는 `user_data` 테이블에 저장합니다. 문제집 표지, 오답 사진, 문제집 정답 파일(PDF/JPG/PNG/WEBP, 최대 15MB)은 비공개 `my-pace-photos` 버킷에 저장되며, SQL에 포함된 RLS 정책으로 로그인한 계정 소유의 데이터와 파일만 접근할 수 있습니다. 정답 파일 업로드를 사용하려면 최신 `supabase/setup.sql`을 Supabase SQL Editor에서 다시 실행해 PDF MIME 형식과 15MB 제한을 적용하세요. 브라우저에 키를 노출하지 않도록 Supabase service role key는 사용하지 마세요.
 
 Vercel 배포에서는 Project Settings → Environment Variables에 `VITE_SUPABASE_URL`과 `VITE_SUPABASE_ANON_KEY`를 등록한 뒤 재배포합니다. Supabase Authentication URL Configuration에서 Site URL을 배포 도메인으로 설정해야 이메일 인증 링크가 앱으로 돌아옵니다.
 
@@ -27,6 +27,7 @@ AI로 보내는 정보는 난이도와 익명 통계(문항 수, 정답률, 풀�
 
 - 여러 문제집 등록
 - 문제집 표지 사진 등록
+- 문제집별 정답 파일 업로드 및 다운로드
 - 오늘 풀이 진행률과 정답률, 문제집별 누적 정답률 확인
 - 달력에서 날짜별 문제집 풀이와 페이지 범위를 확인하고 계획하거나 날짜 변경
 - 내 설정에서 배경 색상 모드 선택 또는 직접 색 지정
