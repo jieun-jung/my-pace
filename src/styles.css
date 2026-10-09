@@ -189,6 +189,9 @@ body,button,input,select,textarea{font-family:"Malgun Gothic","맑은 고딕","A
 .session-card{border-color:var(--book-border,#dce5ed)!important;background:var(--book-tint,#fff)!important}
 .session-card-done{border-color:var(--book-border,#dce5ed)!important;border-left:4px solid var(--book-accent,#35a36a)!important;background:var(--book-tint,#f5fbf6)!important}
 .session-card .status.done{padding:5px 9px;border:1px solid #a9dfbd;border-radius:20px;background:#e1f5e8;color:#176c3a;font-size:12px;font-weight:700;white-space:nowrap}
+.grade-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:14px 16px}
+.grade-summary>span{min-width:0;display:grid;gap:5px;line-height:1.4}
+.grade-summary>span b{font-size:14px}
 @media(max-width:650px){
   .stats-combined{padding:10px 3px}
   .stats-combined .stat-card{min-height:79px;padding:7px 4px}
@@ -197,6 +200,9 @@ body,button,input,select,textarea{font-family:"Malgun Gothic","맑은 고딕","A
   .stats-combined .stat-card>div em{min-height:28px;font-size:9px;overflow-wrap:anywhere}
   .stats-combined .metric-progress{margin-top:6px}
   .session-card .status.done{padding:4px 7px;font-size:10px}
+  .grade-summary{gap:5px;padding:11px 8px}
+  .grade-summary>span{font-size:9px}
+  .grade-summary>span b{font-size:11px}
 }
 
 /* Blue palette */
@@ -301,6 +307,8 @@ body,button,input,select,textarea{font-family:"Malgun Gothic","맑은 고딕","A
 .book-edit-form>label,.book-edit-form .two>label{display:block;margin-bottom:15px;color:#3e5e7b;font-size:11px;font-weight:600}
 .book-edit-form>label>b{color:#c36e46}
 .book-edit-form input:not([type="file"]):not([type="checkbox"]){width:100%;height:42px;margin-top:7px;padding:0 12px;border:1px solid #d7e4f0;border-radius:7px;background:#fff;color:#30495f;font-family:inherit;font-size:12px}
+.book-edit-form select{width:100%;height:42px;margin-top:7px;padding:0 12px;border:1px solid #d7e4f0;border-radius:7px;background:#fff;color:#30495f;font-family:inherit;font-size:12px}
+.difficulty-help{display:block;margin-top:5px;color:#70869a;font-size:10px;font-weight:400}
 .book-edit-form .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .edit-photo-preview{width:112px;height:140px;margin:0 0 18px;display:grid;place-items:center;overflow:hidden;border:1px solid #d9e6f2;border-radius:8px;background:#e7f2ff;color:#4981b4;font-size:34px}
 .edit-photo-preview img{width:100%;height:100%;object-fit:cover}
@@ -788,4 +796,334 @@ body{font-size:16px}
   .account-card h1{font-size:23px}
   .account-card>p{font-size:13px}
   .setup-steps{font-size:12px}
+}
+.record-view .page-heading h1{font-size:36px;letter-spacing:-.7px}
+.record-view .page-heading p{font-size:15px;line-height:1.65;color:#526b83}
+.record-view .grade-summary{gap:12px;margin-bottom:18px;padding:18px;border:1px solid #cbdced;border-radius:13px;background:#edf5ff;color:#3f5f7e}
+.record-view .grade-summary>span{gap:7px;font-size:13px}
+.record-view .grade-summary>span b{color:#174e8a;font-size:19px}
+.record-view .grade-list{gap:14px}
+.record-view .grade-card{padding:21px 23px;border:1px solid #d4e2f0;border-radius:13px;background:#fff;box-shadow:0 3px 12px #264b6c0b}
+.record-view .grade-head{display:grid;grid-template-columns:120px minmax(120px,1fr) auto;align-items:center;gap:18px}
+.record-view .grade-number{width:58px;color:#355b7d}
+.record-view .grade-number>small{font-size:13px;color:#526f89}
+.record-view .grade-number>b{font-size:27px;font-weight:800}
+.record-view .grade-number>b i{font-size:15px}
+.record-view .grade-time{margin-right:auto}
+.record-view .grade-time small{margin-bottom:5px;font-size:13px;color:#526f89}
+.record-view .grade-time>b{font-size:20px;color:#244f78}
+.record-view .answers{gap:9px}
+.record-view .answers button{min-height:43px;padding:9px 14px;border-radius:9px;font-size:14px;font-weight:700}
+.record-view .answers button.correct{border-color:#c6e4d0;background:#f2faf4;color:#27653e}
+.record-view .answers button.correct.chosen{border-color:#63b67c;background:#e2f5e8;color:#165b30}
+.record-view .answers button.wrong{border-color:#f0d7c5;background:#fff8f2;color:#9a5a31}
+.record-view .answers button.wrong.chosen{border-color:#e69b75;background:#fff0e7;color:#873f24}
+.record-view .notes textarea{min-height:88px;font-size:15px;line-height:1.7}
+.record-view .grade-footer{font-size:13px}
+.record-view .grade-footer .primary{min-height:44px;padding:10px 16px;font-size:14px}
+@media(max-width:650px){
+  .record-view .page-heading h1{font-size:27px}
+  .record-view .page-heading p{font-size:13px}
+  .record-view .grade-summary{gap:5px;padding:13px 8px}
+  .record-view .grade-summary>span{font-size:10px}
+  .record-view .grade-summary>span b{font-size:14px}
+  .record-view .grade-list{gap:11px}
+  .record-view .grade-card{padding:15px 13px}
+  .record-view .grade-head{display:grid;grid-template-columns:auto 1fr;gap:13px 16px}
+  .record-view .grade-number{width:auto}
+  .record-view .grade-number>small{font-size:11px}
+  .record-view .grade-number>b{font-size:24px}
+  .record-view .grade-time{margin:0}
+  .record-view .grade-time small{font-size:11px}
+  .record-view .grade-time>b{font-size:18px}
+  .record-view .answers{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr}
+  .record-view .answers button{min-height:44px;padding:9px 5px;font-size:12px}
+  .record-view .notes textarea{min-height:78px;font-size:14px}
+  .record-view .grade-footer{align-items:flex-start;font-size:11px}
+  .record-view .grade-footer .primary{white-space:nowrap;font-size:12px}
+}
+@media(min-width:651px) and (max-width:900px){
+  .record-view .grade-head{grid-template-columns:90px minmax(0,1fr);gap:14px}
+  .record-view .answers{grid-column:1/-1;justify-self:end}
+}
+.answers button:not(.chosen),.record-view .answers button:not(.chosen){border-color:#d5dbe2;background:#f0f2f5;color:#66717d}
+.answers button:not(.chosen):hover,.record-view .answers button:not(.chosen):hover{border-color:#b8c2cd;background:#e7ebef;color:#46515d}
+.grade-summary>span{align-content:center;justify-items:center;text-align:center}
+.grade-summary>span+span{border-left:1px solid #c7d9eb;padding-left:8px}
+.calendar-view .page-heading h1{font-size:36px}
+.calendar-view .page-heading p{font-size:15px;line-height:1.6;color:#526b83}
+.calendar-view .calendar-card{padding:24px;border:1px solid #cddded;border-radius:15px;background:#fff;box-shadow:0 4px 16px #24476b0c}
+.calendar-view .calendar-toolbar{grid-template-columns:42px minmax(0,1fr) 42px auto;gap:12px;margin-bottom:20px}
+.calendar-view .calendar-toolbar h2{font-size:22px;font-weight:800;color:#244b70}
+.calendar-view .month-arrow{width:42px;height:42px;border-radius:10px;font-size:24px}
+.calendar-view .today-link{min-height:40px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:700}
+.calendar-view .calendar-grid{grid-template-columns:repeat(7,minmax(0,1fr));gap:7px}
+.calendar-view .weekday-grid{margin-bottom:9px;font-size:13px;font-weight:700}
+.calendar-view .calendar-day{min-height:88px;padding:9px 8px;gap:6px;border-color:#e0e8f0;border-radius:10px;font-size:14px}
+.calendar-view .calendar-day>b{width:27px;height:27px;font-size:14px;font-weight:700}
+.calendar-view .calendar-book-names{gap:4px}
+.calendar-view .calendar-book-names span{padding:4px 6px;border-radius:5px;font-size:10px;font-weight:600}
+.calendar-view .calendar-book-names small{font-size:10px}
+.calendar-view .calendar-legend{margin-top:14px;padding-top:13px;font-size:12px}
+.calendar-view .calendar-legend i{width:9px;height:9px}
+.calendar-view .selected-day-heading{align-items:center;margin:29px 0 14px}
+.calendar-view .selected-day-heading h2{font-size:23px;font-weight:700;color:#244b70}
+.calendar-view .selected-day-heading{flex-wrap:wrap}
+.calendar-report-controls{display:flex;align-items:center;justify-content:flex-end;gap:9px}
+.calendar-report-tabs{display:inline-flex;gap:3px;padding:3px;border:1px solid #d4e2f0;border-radius:9px;background:#eef5fc}
+.calendar-report-tabs button{min-height:34px;padding:6px 11px;border:0;border-radius:6px;background:transparent;color:#58738d;font-size:12px;font-weight:700;white-space:nowrap}
+.calendar-report-tabs button.active{background:#fff;color:#245f9c;box-shadow:0 1px 4px #25486c20}
+.report-date-link{padding:2px 4px;border:0;border-radius:5px;background:transparent;color:#245f9c;font:inherit;font-weight:800;text-decoration:underline;text-underline-offset:2px}
+.calendar-view .day-session-list{display:grid;gap:12px}
+.calendar-view .calendar-session{gap:17px;padding:18px;border-color:#d4e1ee;border-radius:13px;background:#fff;box-shadow:0 3px 12px #24476b0a}
+.calendar-view .calendar-session-cover{width:58px;height:74px;flex-basis:58px;border-radius:8px}
+.calendar-view .calendar-session-title{align-items:center}
+.calendar-view .calendar-session-title h3{font-size:17px;line-height:1.45;color:#243f5a}
+.calendar-view .calendar-session-title p{font-size:13px;line-height:1.5;color:#526b83}
+.calendar-view .calendar-session-stats{gap:18px;margin-top:14px;font-size:13px;color:#526b83}
+.calendar-view .calendar-session-stats b{font-size:14px;color:#294f74}
+.calendar-view .calendar-session-actions{margin-top:13px;padding-top:12px}
+.calendar-view .calendar-session-actions .outline{min-height:40px;padding:8px 12px;border-radius:8px;font-size:13px}
+.calendar-view .calendar-session-actions label{font-size:12px}
+.calendar-view .calendar-session-actions input{width:150px;min-height:40px;padding:7px 9px;font-size:13px}
+.calendar-view .day-empty{min-height:100px;padding:20px;border-color:#bcd4eb;border-radius:13px;background:#f4f9ff}
+.calendar-view .day-empty>span{width:44px;height:44px;font-size:20px}
+.calendar-view .day-empty b{font-size:15px}
+.calendar-view .day-empty p{font-size:13px;line-height:1.55}
+@media(max-width:900px){
+  .calendar-view .calendar-card{padding:18px}
+  .calendar-view .calendar-day{min-height:70px;padding:7px 5px}
+  .calendar-view .calendar-book-names span{font-size:9px}
+  .calendar-view .calendar-session{padding:15px;gap:13px}
+  .calendar-view .calendar-session-title h3{font-size:15px}
+  .calendar-view .calendar-session-stats{gap:12px;font-size:12px}
+}
+@media(max-width:650px){
+  .calendar-view .page-heading{align-items:flex-start;gap:10px}
+  .calendar-view .page-heading h1{font-size:27px}
+  .calendar-view .page-heading p{font-size:13px}
+  .calendar-view .page-heading .primary{min-height:40px;padding:8px 9px;font-size:11px;white-space:nowrap}
+  .calendar-view .calendar-card{padding:14px 10px 11px;border-radius:12px}
+  .calendar-view .calendar-toolbar{grid-template-columns:34px minmax(0,1fr) 34px auto;gap:6px;margin-bottom:15px}
+  .calendar-view .calendar-toolbar h2{font-size:17px}
+  .calendar-view .month-arrow{width:34px;height:36px;font-size:21px}
+  .calendar-view .today-link{min-height:36px;padding:6px 9px;font-size:11px}
+  .calendar-view .calendar-grid{gap:4px}
+  .calendar-view .weekday-grid{margin-bottom:6px;font-size:11px}
+  .calendar-view .calendar-day{min-height:58px;padding:5px 1px;align-items:center;gap:2px;border-radius:7px}
+  .calendar-view .calendar-day>b{width:25px;height:25px;font-size:12px}
+  .calendar-view .calendar-day:has(.calendar-book-names)>b:after{width:5px;height:5px;margin-top:22px;background:var(--mode-accent,#347bd0)}
+  .calendar-view .calendar-legend{margin-top:10px;padding-top:10px;font-size:10px}
+  .calendar-view .selected-day-heading{align-items:flex-start;gap:8px;margin:22px 0 12px}
+  .calendar-view .selected-day-heading{flex-wrap:wrap}
+  .calendar-view .selected-day-heading h2{font-size:17px;line-height:1.45}
+  .calendar-view .selected-day-heading .subtle{min-height:37px;padding:7px 9px;font-size:11px;white-space:nowrap}
+  .calendar-report-controls{width:100%;justify-content:space-between;gap:6px}
+  .calendar-report-tabs button{min-height:36px;padding:6px 10px;font-size:11px}
+  .calendar-view .calendar-session{align-items:flex-start;gap:10px;padding:12px;border-radius:11px}
+  .calendar-view .calendar-session-cover{width:42px;height:55px;flex-basis:42px}
+  .calendar-view .calendar-session-title{align-items:flex-start;gap:5px}
+  .calendar-view .calendar-session-title h3{font-size:13px;line-height:1.4}
+  .calendar-view .calendar-session-title p{font-size:11px;line-height:1.5}
+  .calendar-view .calendar-session-title .status{flex:0 0 auto;font-size:10px}
+  .calendar-view .calendar-session-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 10px;margin-top:11px;font-size:11px}
+  .calendar-view .calendar-session-stats b{font-size:12px}
+  .calendar-view .calendar-session-actions{align-items:stretch;gap:9px;margin-top:10px;padding-top:10px}
+  .calendar-view .calendar-session-actions .outline{width:100%;min-height:40px;font-size:12px}
+  .calendar-view .calendar-session-actions label{display:grid;grid-template-columns:minmax(0,1fr) 145px;gap:8px;font-size:11px}
+  .calendar-view .calendar-session-actions input{width:100%;min-height:42px;font-size:14px}
+  .calendar-view .day-empty{min-height:90px;padding:14px;gap:10px}
+  .calendar-view .day-empty>span{width:38px;height:38px;flex:0 0 38px}
+  .calendar-view .day-empty b{font-size:13px;line-height:1.5}
+  .calendar-view .day-empty p{font-size:11px}
+}
+.calendar-view .calendar-session-stats{gap:8px 10px;margin-top:16px;color:#405c77;font-size:14px;font-weight:600}
+.calendar-view .calendar-session-stats>span{min-width:0;padding:7px 9px;display:inline-flex;align-items:baseline;gap:7px;border-radius:7px;background:#f1f6fb}
+.calendar-view .calendar-session-stats b{margin:0;color:#234e76;font-size:16px;font-weight:800;font-variant-numeric:tabular-nums}
+@media(max-width:650px){
+  .calendar-view .calendar-session-stats{gap:7px;margin-top:12px;font-size:12px}
+  .calendar-view .calendar-session-stats>span{padding:7px 8px;gap:5px}
+  .calendar-view .calendar-session-stats b{font-size:14px}
+}
+.report-month-toolbar{display:flex;align-items:center;justify-content:center;gap:14px;margin:-5px 0 20px;padding:10px;border:1px solid #d3e1ef;border-radius:11px;background:#fff}
+.report-month-toolbar h2{min-width:145px;margin:0;color:#294c70;font-size:17px;text-align:center}
+.report-month-toolbar .today-link{margin-left:auto}
+.report-summary-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:23px;overflow:hidden;border:1px solid #d3e1ef;border-radius:12px;background:#fff}
+.report-summary-grid article{min-width:0;padding:16px 18px;border-right:1px solid #e0e9f2}
+.report-summary-grid article:last-child{border:0}
+.report-summary-grid article>span{display:block;margin-bottom:8px;color:#6c8298;font-size:12px;font-weight:700}
+.report-summary-grid article>b{color:#244d73;font-size:24px;font-weight:800;font-variant-numeric:tabular-nums}
+.report-summary-grid article>b small{margin-left:3px;color:#6c8298;font-size:13px}
+.report-summary-grid .accuracy-low>b{color:#c62828}
+.report-summary-grid .accuracy-medium>b{color:#21834a}
+.report-summary-grid .accuracy-high>b{color:#1769c2}
+.report-ai-card{margin:20px 0 24px;padding:18px 20px;border:1px solid #d1e2f1;border-radius:13px;background:linear-gradient(135deg,#f4f9ff,#fff 75%);box-shadow:0 3px 12px #24476b0a}
+.report-ai-heading{display:flex;align-items:center;gap:12px}
+.report-ai-icon{width:38px;height:38px;flex:0 0 38px;display:grid;place-items:center;border-radius:11px;background:#e4f0ff;color:#3178bb;font-size:20px}
+.report-ai-heading>div{min-width:0;flex:1}
+.report-ai-heading h2{margin:0;color:#244d73;font-size:17px;font-weight:800}
+.report-ai-heading p{margin:4px 0 0;color:#6e8499;font-size:12px;line-height:1.5}
+.report-ai-heading .primary{min-height:40px;padding:9px 14px;white-space:nowrap}
+.report-ai-heading .primary:disabled{opacity:.55;cursor:wait}
+.report-ai-privacy{display:block;margin:12px 0 0 50px;color:#7b8fa2;font-size:10px;line-height:1.5}
+.report-ai-error{margin:12px 0 0;padding:10px 12px;border-radius:8px;background:#fff1f0;color:#b3413e;font-size:12px}
+.report-ai-results{margin:14px 0 0 50px}
+.report-ai-overall{margin:0 0 10px;padding:12px 14px;border-radius:9px;background:#eaf3fc;color:#254d70;font-size:14px;font-weight:700;line-height:1.65}
+.report-ai-results article{padding:10px 2px;border-top:1px solid #dce8f3}
+.report-ai-results article>b{color:#305b80;font-size:12px}
+.report-ai-results article>p{margin:4px 0 0;color:#4c657c;font-size:13px;line-height:1.65}
+.report-section{margin-top:23px}
+.report-section-heading{display:flex;align-items:end;justify-content:space-between;margin-bottom:11px}
+.report-section-heading h2{margin:0;color:#294c70;font-size:18px;font-weight:800}
+.report-section-heading p{margin:5px 0 0;color:#71869b;font-size:12px}
+.report-chart{padding:15px 12px 4px;border:1px solid #d3e1ef;border-radius:12px;background:#fff}
+.report-chart svg{width:100%;height:160px;overflow:visible}
+.report-chart line{stroke:#e2ebf3;stroke-width:1}
+.report-chart rect{fill:#4385c5}
+.report-chart text{fill:#6d849a;font-size:10px}
+.report-progress-cell>b{display:block;margin-bottom:7px;color:#294f74;font-size:12px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.report-progress-cell .report-progress-bar{display:block;width:100%}
+.report-date,.report-daily-count{font-weight:800;font-variant-numeric:tabular-nums;text-align:center;white-space:nowrap}
+.report-daily-books{max-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.report-daily-table th:first-child{width:17%}
+.report-daily-table th:nth-child(2){width:43%}
+.report-daily-table th:nth-child(3){width:18%}
+.report-daily-table th:last-child{width:22%}
+.report-daily-table .report-time{font-size:14px!important}
+.calendar-report-wrap{overflow-x:auto;border:1px solid #d3e1ef;border-radius:13px;background:#fff;box-shadow:0 3px 12px #24476b0a}
+.calendar-report{width:100%;border-collapse:collapse;table-layout:fixed;text-align:left}
+.calendar-report th{padding:13px 12px;background:#e3effb;color:#244d73;font-size:13px;font-weight:800;text-align:center;white-space:nowrap;border-bottom:2px solid #c5d9ed}
+.calendar-report td{padding:13px 12px;border-top:1px solid #e0e9f2;color:#405c77;font-size:13px;vertical-align:middle}
+.calendar-report th:first-child{width:42%}
+.calendar-report th:nth-child(2){width:16%}
+.calendar-report th:nth-child(3){width:20%}
+.calendar-report th:last-child{width:22%}
+.report-main-cell strong,.report-main-cell span{display:block}
+.report-main-cell strong{color:#1c3b59;font-size:15px;font-weight:800;line-height:1.45}
+.report-book-heading{min-width:0;display:block}
+.report-book-heading strong{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.report-book-range{margin-top:4px;color:#637b91;font-size:11px;line-height:1.45}
+.report-inline-actions{margin-top:8px;display:flex;align-items:center;flex-wrap:wrap;gap:7px}
+.report-inline-actions .outline{min-height:32px;padding:5px 8px;border-radius:7px;font-size:10px;white-space:nowrap}
+.report-inline-actions label{display:flex;align-items:center;gap:5px;color:#526b83;font-size:10px;white-space:nowrap}
+.report-inline-actions input{width:132px;min-height:32px;padding:5px 7px;border:1px solid #d5e2ef;border-radius:6px;background:#f8fbff;color:#355674;font-size:11px}
+.report-progress{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:6px}
+.report-progress>b{color:#294f74;font-size:12px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.report-progress .outline{min-height:31px;padding:5px 7px;border-radius:6px;font-size:10px;white-space:nowrap}
+.report-progress-bar{height:6px;grid-column:1/-1;overflow:hidden;border-radius:5px;background:#e4edf6}
+.report-progress-bar i{height:100%;display:block;border-radius:5px;background:var(--mode-accent,#347bd0)}
+.report-time,.report-accuracy{font-size:14px!important;font-weight:800;font-variant-numeric:tabular-nums;text-align:center;white-space:nowrap}
+.calendar-report td.report-time,.calendar-report td.report-accuracy{text-align:center}
+.report-accuracy.accuracy-low{color:#c62828}
+.report-accuracy.accuracy-medium{color:#21834a}
+.report-accuracy.accuracy-high{color:#1769c2}
+@media(max-width:900px){
+  .calendar-report th,.calendar-report td{padding:11px 8px}
+  .calendar-report th{font-size:11px}
+  .calendar-report td{font-size:12px}
+  .report-main-cell strong{font-size:13px}
+  .report-inline-actions{gap:5px}
+  .report-inline-actions input{width:120px}
+}
+@media(max-width:650px){
+  .report-ai-card{margin:16px 0 20px;padding:14px 12px}
+  .report-ai-heading{gap:8px;flex-wrap:wrap}
+  .report-ai-icon{width:32px;height:32px;flex-basis:32px;font-size:17px}
+  .report-ai-heading>div{flex-basis:calc(100% - 44px)}
+  .report-ai-heading h2{font-size:15px}
+  .report-ai-heading p{font-size:11px}
+  .report-ai-heading .primary{width:100%;min-height:40px}
+  .report-ai-privacy,.report-ai-results{margin-left:0}
+  .report-ai-privacy{font-size:9px}
+  .report-ai-overall{font-size:13px}
+  .report-ai-results article>p{font-size:12px}
+  .report-month-toolbar{gap:7px;margin:-5px 0 14px;padding:7px}
+  .report-month-toolbar h2{min-width:120px;font-size:15px}
+  .report-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr));margin-bottom:18px}
+  .report-summary-grid article{padding:12px 13px;border-bottom:1px solid #e0e9f2}
+  .report-summary-grid article:nth-child(2){border-right:0}
+  .report-summary-grid article:nth-child(n+3){border-bottom:0}
+  .report-summary-grid article>span{margin-bottom:5px;font-size:11px}
+  .report-summary-grid article>b{font-size:21px}
+  .report-section{margin-top:18px}
+  .report-section-heading h2{font-size:16px}
+  .report-section-heading p{font-size:11px}
+  .report-chart{padding:12px 6px 2px}
+  .report-chart svg{height:130px}
+  .report-daily-table th:first-child{width:15%}
+  .report-daily-table th:nth-child(2){width:40%}
+  .report-daily-table th:nth-child(3){width:21%}
+  .report-daily-table th:last-child{width:24%}
+  .report-daily-table th,.report-daily-table td{padding-right:3px;padding-left:3px}
+  .report-daily-books{font-size:10px!important}
+  .report-daily-table .report-time{font-size:12px!important}
+  .report-progress-cell>b{font-size:10px}
+  .calendar-report-wrap{overflow-x:hidden;border-radius:11px}
+  .calendar-report{display:table;width:100%;min-width:0;table-layout:fixed}
+  .calendar-report th,.calendar-report td{padding:7px 4px}
+  .calendar-report th:first-child{width:33%}
+  .calendar-report th:nth-child(2){width:18%}
+  .calendar-report th:nth-child(3){width:25%}
+  .calendar-report th:last-child{width:24%}
+  .calendar-report thead{display:table-header-group;position:static;width:auto;height:auto;padding:0;overflow:visible;clip:auto;white-space:normal;clip-path:none}
+  .calendar-report th{padding:9px 4px;background:#e3effb;color:#244d73;font-size:10px;font-weight:800;white-space:normal;line-height:1.35}
+  .calendar-report tbody{display:table-row-group;padding:0}
+  .calendar-report tr{display:table-row;padding:0;border:0;border-radius:0;background:transparent}
+  .calendar-report td{min-width:0;padding:9px 4px;display:table-cell;border-top:1px solid #e0e9f2;border-bottom:0;font-size:12px;text-align:left}
+  .calendar-report td::before{content:none}
+  .report-main-cell strong{font-size:14px}
+  .report-book-range{font-size:11px}
+  .report-progress{grid-template-columns:minmax(0,1fr);gap:5px}
+  .report-progress>b{font-size:11px}
+  .report-progress .outline{width:100%;min-height:31px;padding:4px 3px;font-size:9px}
+  .report-progress-bar{grid-column:1/-1;width:100%;height:5px}
+  .report-time,.report-accuracy{font-size:15px!important}
+  .report-inline-actions{gap:5px}
+  .report-inline-actions .outline{min-height:32px;font-size:10px}
+  .report-inline-actions label{font-size:9px}
+  .report-inline-actions input{width:105px;min-height:34px;font-size:12px}
+  .report-book-heading strong{width:100%;max-width:100%;font-size:15px}
+}
+.stats-combined .stat-card.accuracy-low>div>b,.book-metrics.accuracy-low>div:first-child>b,.book-daily-accuracy.accuracy-low,.book-daily-accuracy.accuracy-low b,.calendar-session-stats b.accuracy-low{color:#c62828!important}
+.stats-combined .stat-card.accuracy-medium>div>b,.book-metrics.accuracy-medium>div:first-child>b,.book-daily-accuracy.accuracy-medium,.book-daily-accuracy.accuracy-medium b,.calendar-session-stats b.accuracy-medium{color:#21834a!important}
+.stats-combined .stat-card.accuracy-high>div>b,.book-metrics.accuracy-high>div:first-child>b,.book-daily-accuracy.accuracy-high,.book-daily-accuracy.accuracy-high b,.calendar-session-stats b.accuracy-high{color:#1769c2!important}
+.stats-combined .stat-card.accuracy-low .metric-progress i{background:#d44747!important}
+.stats-combined .stat-card.accuracy-medium .metric-progress i{background:#21834a!important}
+.stats-combined .stat-card.accuracy-high .metric-progress i{background:#1769c2!important}
+.grading-view .grade-summary>span{color:#294b69;font-size:14px;font-weight:700}
+.grading-view .grade-summary>span b{color:#174e8a;font-size:22px;font-weight:800}
+.grading-view .grade-card{padding:15px 17px}
+.grading-view .grade-head{display:grid;grid-template-columns:66px 100px minmax(0,1fr);align-items:center;gap:14px}
+.grading-view .grade-number{width:auto}
+.grading-view .grade-number>small,.grading-view .grade-time small{display:none}
+.grading-view .grade-number>b{font-size:23px}
+.grading-view .grade-time{margin:0}
+.grading-view .grade-time>b{font-size:18px}
+.grading-view .answers{display:flex;grid-column:auto;justify-self:end;gap:7px}
+.grading-view .answers button{min-height:38px;padding:7px 11px;font-size:13px;white-space:nowrap}
+@media(min-width:651px) and (max-width:900px){
+  .grading-view .grade-head{grid-template-columns:58px 90px minmax(0,1fr);gap:10px}
+  .grading-view .answers button{padding:7px 8px;font-size:12px}
+}
+@media(max-width:650px){
+  .grading-view .grade-summary>span{font-size:12px}
+  .grading-view .grade-summary>span b{font-size:17px}
+  .grading-view .grade-card{padding:12px 8px}
+  .grading-view .grade-head{grid-template-columns:40px 48px minmax(0,1fr);gap:5px}
+  .grading-view .grade-number>b{font-size:17px}
+  .grading-view .grade-number>b i{font-size:10px}
+  .grading-view .grade-time>b{font-size:13px}
+  .grading-view .answers{width:100%;gap:4px}
+  .grading-view .answers button{flex:1;min-width:0;min-height:34px;padding:5px 3px;font-size:10px}
+}
+.book-daily-list{max-height:160px}
+@media(max-width:650px){
+  .book-card{min-width:0;padding-right:9px;padding-left:9px}
+  .book-daily-row{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"date accuracy" "progress progress";gap:6px;padding:7px}
+  .book-daily-date{grid-area:date;min-width:0;font-size:9px;white-space:nowrap}
+  .book-daily-progress{grid-area:progress;min-width:0}
+  .book-daily-progress>div{min-width:0;height:6px}
+  .book-daily-progress span{min-width:29px;font-size:10px}
+  .book-daily-accuracy{grid-area:accuracy;font-size:8px}
+  .book-daily-accuracy b{font-size:9px}
 }

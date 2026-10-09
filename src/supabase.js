@@ -83,6 +83,10 @@ async function validAccessToken() {
   }
 }
 
+export async function getValidAccessToken() {
+  return validAccessToken();
+}
+
 async function apiRequest(path, options = {}) {
   const token = await validAccessToken();
   const headers = {
