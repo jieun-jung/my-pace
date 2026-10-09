@@ -4,11 +4,18 @@
 
 ## 시작하기
 
-1. 프로젝트 폴더에서 npm install 실행
-2. npm run dev 실행
-3. 터미널에 표시된 로컬 주소 열기
+1. Supabase 프로젝트를 만들고 SQL Editor에서 `supabase/setup.sql`을 실행합니다.
+2. `.env.example`을 `.env.local`로 복사하고 Supabase URL과 anon/publishable key를 입력합니다.
+3. 프로젝트 폴더에서 `npm install` 후 `npm run dev`를 실행합니다.
+4. 첫 로그인에서 이 브라우저에 저장된 기존 기록을 계정으로 가져옵니다.
 
 npm run build 명령으로 정적 배포용 파일을 생성할 수 있습니다.
+
+## 서버 저장 설정
+
+앱은 Supabase Auth로 로그인하고, 사용자별 학습 데이터는 `user_data` 테이블에 저장합니다. 문제집 표지와 오답 사진은 비공개 `my-pace-photos` 버킷에 저장되며, SQL에 포함된 RLS 정책으로 로그인한 계정 소유의 데이터와 파일만 접근할 수 있습니다. 브라우저에 키를 노출하지 않도록 Supabase service role key는 사용하지 마세요.
+
+Vercel 배포에서는 Project Settings → Environment Variables에 `VITE_SUPABASE_URL`과 `VITE_SUPABASE_ANON_KEY`를 등록한 뒤 재배포합니다. Supabase Authentication URL Configuration에서 Site URL을 배포 도메인으로 설정해야 이메일 인증 링크가 앱으로 돌아옵니다.
 
 ## 주요 기능
 

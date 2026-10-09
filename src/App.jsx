@@ -1,6 +1,8 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { isSupabaseConfigured, loadAccountData, readAuthSession, saveAccountData, signIn, signOut, signUp } from "./supabase.js";
 
 const KEY = "my-pace.data.v1";
+const MIGRATION_KEY = "my-pace.cloud-migration-owner.v1";
 const THEME_KEY = "my-pace.theme.v1";
 const COLOR_KEY = "my-pace.custom-color.v1";
 const validThemes = ["blue","mint","sunshine","lavender","custom"];
@@ -48,7 +50,42 @@ function resizePhoto(file){
 
 export default function App(){
   const [data,setData]=useState(readData),[page,setPage]=useState("home"),[sessionId,setSessionId]=useState(""),[editingBookId,setEditingBookId]=useState(""),[selectedDate,setSelectedDate]=useState(todayKey()),[planDate,setPlanDate]=useState(todayKey()),[calendarMonth,setCalendarMonth]=useState(()=>{const d=new Date();return new Date(d.getFullYear(),d.getMonth(),1);}),[theme,setTheme]=useState(readTheme),[customColor,setCustomColor]=useState(readCustomColor),[modal,setModal]=useState(""),[tick,setTick]=useState(Date.now()),[toast,setToast]=useState("");
-  useEffect(()=>{localStorage.setItem(KEY,JSON.stringify(data));},[data]);
+  const [authSession,setAuthSession]=useState(readAuthSession),[cloudReady,setCloudReady]=useState(false),[cloudError,setCloudError]=useState(""),[syncStatus,setSyncStatus]=useState("saved"),[loadAttempt,setLoadAttempt]=useState(0);
+  const saveQueue=useRef(Promise.resolve());
+  useEffect(()=>{
+    if(!authSession?.user?.id){setCloudReady(false);return;}
+    let cancelled=false;
+    setCloudReady(false);setCloudError("");
+    loadAccountData(authSession.user.id).then((cloudData)=>{
+      if(cancelled)return;
+      if(cloudData){setData(cloudData);localStorage.setItem(MIGRATION_KEY,authSession.user.id);}
+      else{
+        const owner=localStorage.getItem(MIGRATION_KEY);
+        setData(owner&&owner!==authSession.user.id?{books:[],sessions:[]}:readData());
+      }
+      setSyncStatus("saved");setCloudReady(true);
+    }).catch((error)=>{if(!cancelled)setCloudError(error.message||"서버에서 기록을 불러오지 못했어요.");});
+    return()=>{cancelled=true;};
+  },[authSession?.user?.id,loadAttempt]);
+  useEffect(()=>{if(cloudReady){try{localStorage.setItem(KEY,JSON.stringify(data));}catch{setToast("기기 저장 공간이 부족해요. 사진을 정리해주세요.");}}},[data,cloudReady]);
+  useEffect(()=>{
+    const userId=authSession?.user?.id;
+    if(!cloudReady||!userId)return;
+    const snapshot=data;
+    let cancelled=false;
+    setSyncStatus("saving");
+    const timer=setTimeout(()=>{
+      const task=saveQueue.current.catch(()=>{}).then(()=>saveAccountData(snapshot,userId));
+      saveQueue.current=task.catch(()=>{});
+      task.then(({localData,photosChanged})=>{
+        if(cancelled)return;
+        localStorage.setItem(MIGRATION_KEY,userId);
+        if(photosChanged)setData((current)=>current===snapshot?localData:current);
+        setSyncStatus("saved");
+      }).catch((error)=>{if(!cancelled){setSyncStatus("error");setToast(`서버 저장 실패: ${error.message}`);}});
+    },700);
+    return()=>{cancelled=true;clearTimeout(timer);};
+  },[data,cloudReady,authSession?.user?.id]);
   useEffect(()=>{document.documentElement.dataset.theme=theme;document.documentElement.style.setProperty("--custom-color",customColor);localStorage.setItem(THEME_KEY,theme);localStorage.setItem(COLOR_KEY,customColor);},[theme,customColor]);
   useEffect(()=>{const t=setInterval(()=>setTick(Date.now()),500);return()=>clearInterval(t);},[]);
   useEffect(()=>{if(!toast)return;const t=setTimeout(()=>setToast(""),2200);return()=>clearTimeout(t);},[toast]);
@@ -62,18 +99,26 @@ export default function App(){
   const enter=(s)=>{setSessionId(s.id);setPage(s.status==="grading"||s.status==="done"?"grading":"solve");};
   async function addBook(e){e.preventDefault();const f=new FormData(e.currentTarget);const photoFile=f.get("photo");let photo="";if(photoFile?.size){try{photo=await resizePhoto(photoFile);}catch(error){message(error.message);return;}}const b={id:makeId(),name:String(f.get("name")).trim(),grade:String(f.get("grade")||"").trim(),publisher:String(f.get("publisher")||"").trim(),photo};if(!b.name)return;setData((d)=>({...d,books:[...d.books,b]}));setModal("");message("문제집을 등록했어요.");}
   function editBook(book){setEditingBookId(book.id);setPage("book-edit");}
-  async function saveBook(e){e.preventDefault();if(!editingBook)return;const f=new FormData(e.currentTarget),photoFile=f.get("photo");let photo=f.get("removePhoto")==="on"?"":editingBook.photo||"";if(photoFile?.size){try{photo=await resizePhoto(photoFile);}catch(error){message(error.message);return;}}const changes={name:String(f.get("name")).trim(),grade:String(f.get("grade")||"").trim(),publisher:String(f.get("publisher")||"").trim(),photo};if(!changes.name){message("문제집 이름을 입력해주세요.");return;}setData((d)=>({...d,books:d.books.map((b)=>b.id===editingBook.id?{...b,...changes}:b)}));setPage("books");setEditingBookId("");message("문제집 정보를 수정했어요.");}
+  async function saveBook(e){e.preventDefault();if(!editingBook)return;const f=new FormData(e.currentTarget),photoFile=f.get("photo"),removePhoto=f.get("removePhoto")==="on",photoChanged=Boolean(photoFile?.size)||removePhoto;let photo=removePhoto?"":editingBook.photo||"";if(photoFile?.size){try{photo=await resizePhoto(photoFile);}catch(error){message(error.message);return;}}const changes={name:String(f.get("name")).trim(),grade:String(f.get("grade")||"").trim(),publisher:String(f.get("publisher")||"").trim(),photo,photoPath:photoChanged?"":editingBook.photoPath||""};if(!changes.name){message("문제집 이름을 입력해주세요.");return;}setData((d)=>({...d,books:d.books.map((b)=>b.id===editingBook.id?{...b,...changes}:b)}));setPage("books");setEditingBookId("");message("문제집 정보를 수정했어요.");}
   function addPlan(e){e.preventDefault();const f=new FormData(e.currentTarget),bookId=String(f.get("bookId")),sessionDate=String(f.get("date")||today),ps=Number(f.get("ps")),pe=Number(f.get("pe")),qs=Number(f.get("qs")),qe=Number(f.get("qe"));if(!bookId||[ps,pe,qs,qe].some((n)=>!Number.isInteger(n)||n<1)||pe<ps||qe<qs){message("페이지와 문항 범위를 확인해주세요.");return;}if(qe-qs+1>300){message("한 번에 최대 300문제까지 등록할 수 있어요.");return;}const questions=[];for(let n=qs;n<=qe;n++)questions.push({id:makeId(),page:null,number:n,seconds:0,startedAt:null,result:"pending",reason:"",strategy:""});const s={id:makeId(),bookId,date:sessionDate,pageStart:ps,pageEnd:pe,questionStart:qs,questionEnd:qe,questions,currentIndex:0,status:"planned"};setData((d)=>({...d,sessions:[...d.sessions,s]}));setModal("");setSelectedDate(sessionDate);if(sessionDate===today){setSessionId(s.id);setPage("solve");}else{setSessionId("");const d=new Date(sessionDate+"T12:00:00");setCalendarMonth(new Date(d.getFullYear(),d.getMonth(),1));setPage("calendar");message("선택한 날짜에 풀이를 등록했어요.");}}
   function start(){if(!current)return;updateSession(current.id,(s)=>({...s,status:"active",questions:s.questions.map((q,i)=>i===s.currentIndex?{...q,startedAt:Date.now()}:q)}));}
   function stop(){const q=current?.questions[current.currentIndex];if(!q?.startedAt)return;const elapsed=elapsedSeconds(q.startedAt);updateSession(current.id,(s)=>({...s,questions:s.questions.map((x,i)=>i===s.currentIndex?{...x,seconds:x.seconds+elapsed,startedAt:null}:x)}));message("문제 풀이 시간을 기록했어요.");}
   function next(){if(!current)return;if(current.currentIndex===current.questions.length-1){updateSession(current.id,(s)=>({...s,status:"grading"}));setPage("grading");}else updateSession(current.id,(s)=>({...s,currentIndex:s.currentIndex+1}));}
   function answer(qid,result){updateSession(current.id,(s)=>({...s,questions:s.questions.map((q)=>q.id===qid?{...q,result}:q)}));}
-  function saveNote(sid,qid,field,value){updateSession(sid,(s)=>({...s,questions:s.questions.map((q)=>q.id===qid?{...q,[field]:value}:q)}));}
+  function saveNote(sid,qid,field,value){updateSession(sid,(s)=>({...s,questions:s.questions.map((q)=>q.id===qid?{...q,[field]:value,...(field==="photo"&&q.photo!==value?{photoPath:""}:{})}:q)}));}
   function finish(){if(current.questions.some((q)=>q.result==="pending")){message("모든 문항의 정답 여부를 골라주세요.");return;}updateSession(current.id,(s)=>({...s,status:"done",finishedAt:Date.now()}));setPage("home");setSessionId("");message("풀이와 채점을 저장했어요.");}
+  async function handleSignIn(email,password){const next=await signIn(email,password);setAuthSession(next);}
+  async function handleSignUp(email,password){const next=await signUp(email,password);if(next)setAuthSession(next);return next;}
+  async function handleSignOut(){try{await signOut();}finally{setAuthSession(null);setCloudReady(false);setCloudError("");setData({books:[],sessions:[]});setPage("home");}}
+  function retryCloudSave(){setSyncStatus("saving");setData((current)=>({...current}));}
   const nav=[["home","⌂","오늘의 공부"],["calendar","▦","달력"],["books","▤","내 문제집"],["mistakes","↻","오답 노트"],["settings","⚙","내 설정"]];
+  if(!isSupabaseConfigured)return <AccountScreen title="서버 저장 설정이 필요해요" subtitle="Supabase 프로젝트를 만들고 앱 환경 변수를 등록해주세요." setup/>;
+  if(!authSession)return <AuthView onSignIn={handleSignIn} onSignUp={handleSignUp}/>;
+  if(cloudError)return <AccountScreen title="서버에 연결하지 못했어요" subtitle={cloudError} action={<><button className="primary" onClick={()=>{setCloudError("");setLoadAttempt((n)=>n+1);}}>다시 연결</button><button className="auth-secondary" onClick={handleSignOut}>로그아웃</button></>}/>;
+  if(!cloudReady)return <AccountScreen title="기록을 불러오는 중이에요" subtitle="계정에 저장된 문제집과 풀이 기록을 확인하고 있어요." loading/>;
   return <div className="shell">
-    <aside className="sidebar"><button className="brand" onClick={()=>{setPage("home");setSessionId("");}}><span className="brand-mark">m<span>.</span></span><span><b>my pace</b><small>fast & accurate</small></span></button><div className="side-caption">공부 관리</div><nav>{nav.map(([key,icon,label])=><button key={key} className={"nav-item "+(page===key||(key==="books"&&page==="book-edit")?"active":"")} onClick={()=>{setPage(key);setSessionId("");}}><span>{icon}</span>{label}{key==="mistakes"&&wrongs.length>0&&<i>{wrongs.length}</i>}</button>)}</nav><div className="side-quote"><span>✳</span><p>빠르고 정확하게<br/><b>확실한 한 문제</b>씩.</p><small>시간은 줄이고, 정확도는 높이고</small></div><div className="side-foot">기록은 이 기기에 저장돼요</div></aside>
-    <main className="main"><header className="topbar"><div className="mobile-brand">m<span>.</span> my pace</div><div className="storage"><i/> 이 기기에 저장 중 <b>MP</b></div></header>
+    <aside className="sidebar"><button className="brand" onClick={()=>{setPage("home");setSessionId("");}}><span className="brand-mark">m<span>.</span></span><span><b>my pace</b><small>fast & accurate</small></span></button><div className="side-caption">공부 관리</div><nav>{nav.map(([key,icon,label])=><button key={key} className={"nav-item "+(page===key||(key==="books"&&page==="book-edit")?"active":"")} onClick={()=>{setPage(key);setSessionId("");}}><span>{icon}</span>{label}{key==="mistakes"&&wrongs.length>0&&<i>{wrongs.length}</i>}</button>)}</nav><div className="side-quote"><span>✳</span><p>빠르고 정확하게<br/><b>확실한 한 문제</b>씩.</p><small>시간은 줄이고, 정확도는 높이고</small></div><div className="side-foot">기록은 계정에 저장돼요</div></aside>
+    <main className="main"><header className="topbar"><div className="mobile-brand">m<span>.</span> my pace</div><div className="storage"><i className={syncStatus==="error"?"sync-error":syncStatus==="saving"?"sync-saving":""}/>{syncStatus==="saving"?"서버 저장 중":syncStatus==="error"?<button className="sync-retry" onClick={retryCloudSave}>저장 재시도</button>:"서버에 저장됨"}<b>{authSession.user.email?.slice(0,1).toUpperCase()||"MP"}</b><button className="logout-button" onClick={handleSignOut}>로그아웃</button></div></header>
       {page==="home"&&<section className="view"><header className="page-heading"><div><div className="eyebrow">{new Intl.DateTimeFormat("ko-KR",{month:"long",day:"numeric",weekday:"long"}).format(new Date())}</div><h1>오늘의 목표<span>.</span></h1><p>집중해서 빠르게 풀고, 정확하게 확인해요.</p></div><div className="today-badge">✳<small>TODAY</small></div></header>
         <div className="stats"><Stat label="오늘 진행률" value={(rate(todaySolved,todayQuestions.length)??0)+"%"} detail={todaySolved+" / "+todayQuestions.length+" 문항"} progress={rate(todaySolved,todayQuestions.length)??0} icon="✎" color="mint"/><Stat label="오늘 정답률" value={rate(todayCorrect,todayGraded.length)===null?"—":rate(todayCorrect,todayGraded.length)+"%"} detail={todayGraded.length?todayCorrect+" / "+todayGraded.length+" 정답":"채점 후 표시돼요"} progress={rate(todayCorrect,todayGraded.length)??0} icon="✓" color="lilac"/><Stat label="집중한 시간" value={fmt(todaySeconds)} detail="문항별 풀이 시간 합계" icon="◷" color="sun"/></div>
         <div className="section-title"><div><h2>오늘 풀 문제</h2><p>문제집과 범위를 정하고 타이머를 시작해요.</p></div>{sessions.length>0&&<button className="subtle" onClick={()=>openPlan(today)}>＋ 새 풀이 추가</button>}</div>
@@ -196,3 +241,11 @@ function Notes({reason,strategy,photo,save}){
 }
 function GradeCard({question,sessionId,onAnswer,onNote}){return <article className={"grade-card "+(question.result==="wrong"?"marked-wrong":"")}><div className="grade-head"><div className="grade-number"><small>{question.page?`${question.page}쪽`:"전체 범위"}</small><b>{question.number}<i>번</i></b></div><div className="grade-time"><small>풀이 시간</small><b>{fmt(question.seconds)}</b></div><div className="answers"><button className={question.result==="correct"?"correct chosen":"correct"} onClick={()=>onAnswer(question.id,"correct")}>✓ 맞았어요</button><button className={question.result==="wrong"?"wrong chosen":"wrong"} onClick={()=>onAnswer(question.id,"wrong")}>× 틀렸어요</button></div></div>{question.result==="wrong"&&<Notes reason={question.reason||""} strategy={question.strategy||""} photo={question.photo||""} save={(field,value)=>onNote(sessionId,question.id,field,value)}/>}</article>;}
 function ModalButtons({onClose,submit}){return <div className="modal-actions"><button type="button" className="cancel" onClick={onClose}>취소</button><button className="primary">{submit} <span>→</span></button></div>;}
+function AccountScreen({title,subtitle,setup=false,loading=false,action}){
+  return <main className="account-screen"><section className="account-card"><div className="account-brand"><span className="brand-mark">m<span>.</span></span><span><b>my pace</b><small>fast & accurate</small></span></div><div className="eyebrow">{setup?"SERVER SETUP":loading?"SYNCING YOUR STUDY DATA":"CONNECTION ERROR"}</div><h1>{title}</h1><p>{subtitle}</p>{setup?<div className="setup-steps"><b>프로젝트 설정 순서</b><ol><li><code>supabase/setup.sql</code> 내용을 Supabase SQL Editor에서 실행</li><li>Vercel 환경 변수에 아래 두 값을 추가</li></ol><pre>VITE_SUPABASE_URL=...<br/>VITE_SUPABASE_ANON_KEY=...</pre><small>환경 변수 추가 후 Vercel에서 다시 배포해주세요. 로컬 개발은 프로젝트 루트의 <code>.env.local</code>에 같은 값을 설정하면 돼요.</small></div>:loading?<span className="account-spinner" aria-label="불러오는 중"/>:action}</section></main>;
+}
+function AuthView({onSignIn,onSignUp}){
+  const [mode,setMode]=useState("signin"),[busy,setBusy]=useState(false),[error,setError]=useState(""),[notice,setNotice]=useState("");
+  async function submit(event){event.preventDefault();setBusy(true);setError("");setNotice("");const form=new FormData(event.currentTarget),email=String(form.get("email")).trim(),password=String(form.get("password"));try{if(mode==="signin")await onSignIn(email,password);else{const session=await onSignUp(email,password);if(!session)setNotice("인증 메일을 보냈어요. 이메일 인증을 마친 뒤 로그인해주세요.");}}catch(problem){setError(problem.message||"요청을 완료하지 못했어요.");}finally{setBusy(false);}}
+  return <main className="account-screen"><section className="account-card auth-card"><div className="account-brand"><span className="brand-mark">m<span>.</span></span><span><b>my pace</b><small>fast & accurate</small></span></div><div className="eyebrow">YOUR STUDY, IN SYNC</div><h1>{mode==="signin"?"로그인":"계정 만들기"}</h1><p>로그인하면 문제집과 풀이 기록을 서버에 저장해 어디서든 이어볼 수 있어요.</p><form onSubmit={submit}><label>이메일<input type="email" name="email" autoComplete="email" placeholder="name@example.com" required/></label><label>비밀번호<input type="password" name="password" autoComplete={mode==="signin"?"current-password":"new-password"} minLength="8" placeholder="8자 이상 입력해주세요" required/></label><button className="primary auth-submit" disabled={busy}>{busy?"처리 중…":mode==="signin"?"로그인":"계정 만들기"}</button></form>{error&&<p className="auth-error" role="alert">{error}</p>}{notice&&<p className="auth-notice" role="status">{notice}</p>}<button className="auth-switch" onClick={()=>{setMode(mode==="signin"?"signup":"signin");setError("");setNotice("");}}>{mode==="signin"?"처음 사용하시나요? 계정 만들기":"이미 계정이 있나요? 로그인"}</button><small className="auth-privacy">계정별로 학습 기록과 사진을 분리해 저장합니다.</small></section></main>;
+}
