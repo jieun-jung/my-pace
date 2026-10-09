@@ -666,3 +666,18 @@ body{font-size:16px}
 .q-progress>div button.timed{border-color:#c7def5;background:#e4f1ff;color:#2466a5}
 .q-progress>div button:disabled{cursor:not-allowed;opacity:.55}
 @media(max-width:650px){.q-progress>p{font-size:12px}.q-progress>div button{width:34px;height:34px;font-size:13px}}
+/* Keep Safari's mobile viewport and form controls from triggering layout zoom. */
+@supports (min-height:100dvh){body,.shell{min-height:100dvh}}
+@media(max-width:900px) and (min-width:651px){
+  .main{padding-right:4%;padding-left:4%}
+  .book-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stat-card:last-child{grid-column:1/-1}
+}
+@media(max-width:650px){
+  input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="color"]),select,textarea{
+    min-height:44px;
+    font-size:16px;
+  }
+  textarea{min-height:72px}
+}
