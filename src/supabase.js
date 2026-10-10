@@ -69,6 +69,16 @@ export async function signOut() {
   }
 }
 
+export async function deleteAccount() {
+  const token = await validAccessToken();
+  const response = await fetch("/api/delete-account", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!response.ok) throw await responseError(response);
+  saveAuthSession(null);
+}
+
 async function validAccessToken() {
   let session = readAuthSession();
   if (!session) throw new Error("로그인이 필요해요.");

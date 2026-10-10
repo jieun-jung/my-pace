@@ -2,7 +2,7 @@
 @media(max-width:940px){.shell{grid-template-columns:205px minmax(0,1fr)}.sidebar{width:205px;padding-left:20px;padding-right:17px}.main{padding:0 5% 35px}.stats{gap:8px}.stat-card{padding:13px 12px;gap:9px}.session-card{gap:9px}.session-time{display:none}.outline{padding:8px 7px}}
 @media(max-width:650px){.shell{display:block;padding-bottom:63px}.sidebar{position:fixed;inset:auto 0 0;width:auto;height:62px;z-index:3;padding:5px 10px;border:0;border-top:1px solid #e3e7df;background:#f7f8f4}.brand,.side-caption,.side-quote,.side-foot{display:none}.sidebar nav{height:100%;display:grid;grid-template-columns:repeat(3,1fr);gap:2px}.nav-item{height:51px;justify-content:center;flex-direction:column;gap:1px;padding:2px;font-size:8px}.nav-item>span{font-size:16px}.main{padding:0 18px 30px}.topbar{height:55px;justify-content:space-between}.mobile-brand{display:flex;align-items:center;gap:4px;color:#4b5947;font-weight:700;font-size:12px}.storage{gap:6px;font-size:8px}.storage b{width:25px;height:25px;margin-left:5px}.view{padding-top:30px}.page-heading h1,.focus-heading h1{font-size:26px}.page-heading p,.focus-heading p{max-width:270px;font-size:9px;line-height:1.55}.today-badge{width:49px;height:49px;font-size:12px}.stats{gap:6px;margin-bottom:27px}.stat-card{min-height:75px;padding:10px 8px;gap:6px}.stat-icon{width:27px;height:27px;font-size:12px}.stat-card>div small{font-size:7px}.stat-card>div b{font-size:14px}.stat-card>div b i{font-size:7px}.spark{right:7px;top:6px;font-size:8px}.section-title h2{font-size:14px}.section-title p{font-size:8px}.subtle{padding:7px;font-size:8px}.empty-card{min-height:130px;padding:16px 13px;gap:12px}.empty-art{width:46px;height:46px;flex-basis:46px;border-radius:13px;font-size:19px}.empty-card h3{font-size:12px}.empty-card p{max-width:215px;font-size:8px;line-height:1.5}.primary{padding:9px 10px;font-size:9px}.session-card{padding:11px 9px;gap:8px}.book-cover{width:34px;height:45px;flex-basis:34px;font-size:16px}.session-title h3{max-width:114px;overflow:hidden;font-size:10px;text-overflow:ellipsis;white-space:nowrap}.status{padding:3px 5px;font-size:7px}.session-info>p{font-size:8px}.session-meter{gap:5px}.session-meter small{font-size:7px}.outline{max-width:78px;padding:7px 5px;font-size:7px;white-space:normal}.outline span{margin-left:2px}.encourage{gap:9px;padding:12px 11px}.encourage b{font-size:9px}.encourage p{font-size:8px;line-height:1.5}.footnote{font-size:8px;line-height:1.5}.book-grid{grid-template-columns:1fr 1fr;gap:8px}.book-card,.add-book{min-height:190px;padding:14px 12px}.book-design{height:77px;margin:-14px -12px 12px;font-size:31px}.book-design i{top:53px;right:15px}.book-card h3{font-size:11px}.book-card>p,.book-info{font-size:8px}.wrong-total{padding:7px 9px;font-size:8px}.wrong-total b{font-size:14px}.wrong-card{padding:12px 11px}.notes{grid-template-columns:1fr;gap:9px}.notes textarea{min-height:44px}.focus-count{padding:9px;font-size:8px}.focus-count b{font-size:15px}.timer-card{padding:17px 15px 0}.timer-top{font-size:8px}.q-number{margin:21px auto 5px}.q-number b{font-size:32px}.timer{font-size:51px}.timer-help{font-size:9px}.timer-actions{gap:7px}.start,.stop,.next{min-width:105px;padding:11px;font-size:9px}.timer-total{margin:19px -15px 0;padding:12px 14px}.q-progress{margin:21px auto}.grade-summary{gap:14px;padding:11px;font-size:8px}.grade-summary span b{font-size:9px}.grade-card{padding:10px}.grade-head{gap:7px}.grade-number{width:33px}.answers{gap:4px}.answers button{padding:7px 6px;font-size:8px}.grade-time{margin-right:auto}.grade-time small{font-size:7px}.grade-time>b{font-size:9px}.grade-footer{gap:9px;font-size:8px}.grade-footer .primary{white-space:nowrap}.modal{padding:23px 18px 18px}.modal h2{font-size:19px}.modal-sub{font-size:9px}}
 
-/* Brighter colors, stronger text contrast, and a system sans-serif stack. */
+/* Readable Korean system font stack and shared application defaults. */
 :root{font-family:"Malgun Gothic","맑은 고딕","Apple SD Gothic Neo",sans-serif;color:#29372f;background:#fffaf0;--ink:#29372f;--muted:#5f6f63;--line:#e8e6d8;--paper:#fff;--green:#398252;--bg:#fffaf0}
 body,button,input,select,textarea{font-family:"Malgun Gothic","맑은 고딕","Apple SD Gothic Neo",sans-serif}
 .shell{background:#fffaf0}
@@ -205,7 +205,7 @@ body,button,input,select,textarea{font-family:"Malgun Gothic","맑은 고딕","A
   .grade-summary>span b{font-size:11px}
 }
 
-/* Blue palette */
+/* Legacy base palette; active colors are set by the theme variables below. */
 :root{background:#f3f8ff;--green:#347bd0;--bg:#f3f8ff}
 .shell{background:#f3f8ff}
 .sidebar{background:#e4f0ff;border-color:#d3e4fa}
@@ -367,30 +367,6 @@ body,button,input,select,textarea{font-family:"Malgun Gothic","맑은 고딕","A
 .calendar-session-actions .outline{font-size:8px}
 .calendar-session-actions label{display:flex;align-items:center;gap:6px;color:#5b7590;font-size:8px}
 .calendar-session-actions input{width:124px;padding:5px 6px;border:1px solid #dce7f2;border-radius:5px;background:#f9fcff;color:#416482;font-family:inherit;font-size:9px}
-.settings-panel{max-width:760px;padding:22px;border:1px solid #dfe9f4;border-radius:13px;background:#fff}
-.settings-section-title{display:flex;align-items:center;gap:11px;margin-bottom:18px}
-.settings-icon{width:37px;height:37px;display:grid;place-items:center;border-radius:11px;background:#e5f1ff;color:#347bd0;font-size:18px}
-.settings-section-title h2{margin:0 0 4px;color:#304d69;font-size:14px}
-.settings-section-title p{margin:0;color:#607890;font-size:10px}
-.theme-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.theme-option,.custom-theme-option{min-width:0;min-height:68px;padding:10px;display:flex;align-items:center;gap:10px;border:1px solid #e3eaf2;border-radius:9px;background:#fff;text-align:left}
-.theme-option:hover,.custom-theme-option:hover{border-color:#aacbe9;background:#f8fbff}
-.theme-option.chosen,.custom-theme-option.chosen{border-color:#5595d3;background:#f1f7ff;box-shadow:0 0 0 2px #e5f1ff}
-.theme-swatch,.custom-color-preview{width:38px;height:38px;flex:0 0 38px;display:grid;place-items:center;border:1px solid #dce5ee;border-radius:9px;color:#4d6d88}
-.theme-swatch i{font-size:17px;font-style:normal}
-.theme-copy{min-width:0;flex:1}
-.theme-copy b{display:block;color:#304d69;font-size:10px}
-.theme-copy small{display:block;margin-top:4px;color:#627a91;font-size:8px}
-.theme-check{width:19px;height:19px;display:grid;place-items:center;border:1px solid #dce5ee;border-radius:50%;color:white;font-size:10px}
-.chosen .theme-check{border-color:#347bd0;background:#347bd0}
-.custom-theme-option{margin-top:9px}
-.custom-color-preview{border:1px solid #d4deea}
-.color-picker-label{display:flex;align-items:center;gap:7px;color:#536f89;font-size:8px}
-.color-picker-label input{width:36px;height:32px;padding:2px;border:1px solid #dce5ee;border-radius:6px;background:white;cursor:pointer}
-.settings-preview{max-width:760px;margin-top:13px;padding:14px 16px;display:flex;align-items:center;gap:11px;border-radius:10px;background:var(--mode-soft,#e4f0ff)}
-.settings-preview>span{width:27px;height:27px;display:grid;place-items:center;border-radius:8px;background:#ffffffa8;color:var(--mode-accent,#347bd0)}
-.settings-preview b{color:#365675;font-size:10px}
-.settings-preview p{margin:4px 0 0;color:#5c748b;font-size:9px}
 @media(max-width:650px){
  .sidebar nav{grid-template-columns:repeat(5,minmax(0,1fr))}
  .nav-item{font-size:7px}
@@ -422,18 +398,9 @@ body,button,input,select,textarea{font-family:"Malgun Gothic","맑은 고딕","A
  .calendar-session-actions .outline{max-width:none;font-size:8px}
  .day-empty b{font-size:9px}
  .day-empty p{font-size:8px}
- .settings-panel{padding:16px 12px}
- .theme-grid{grid-template-columns:1fr}
- .theme-option,.custom-theme-option{min-height:61px}
- .settings-section-title h2{font-size:13px}
- .settings-section-title p{font-size:9px}
 }
 
-html[data-theme="blue"]{--mode-bg:#f3f8ff;--mode-side:#e4f0ff;--mode-active:#cfe4ff;--mode-soft:#e1efff;--mode-line:#d3e4fa;--mode-accent:#347bd0;--mode-dark:#174e8a}
-html[data-theme="mint"]{--mode-bg:#f2faf5;--mode-side:#e0f2e7;--mode-active:#ccebd8;--mode-soft:#e1f3e7;--mode-line:#cfe6d8;--mode-accent:#287a54;--mode-dark:#205d42}
-html[data-theme="sunshine"]{--mode-bg:#fffaf0;--mode-side:#fff0c8;--mode-active:#f8e3a2;--mode-soft:#fff1cf;--mode-line:#efe1bd;--mode-accent:#8b5d12;--mode-dark:#6b4811}
-html[data-theme="lavender"]{--mode-bg:#f8f6ff;--mode-side:#eee9fb;--mode-active:#ded5f5;--mode-soft:#eee9fb;--mode-line:#e1daf2;--mode-accent:#6c58ae;--mode-dark:#504184}
-html[data-theme="custom"]{--mode-bg:color-mix(in srgb,var(--custom-color) 11%,#fff);--mode-side:color-mix(in srgb,var(--custom-color) 21%,#fff);--mode-active:color-mix(in srgb,var(--custom-color) 29%,#fff);--mode-soft:color-mix(in srgb,var(--custom-color) 17%,#fff);--mode-line:color-mix(in srgb,var(--custom-color) 30%,#e8eef6);--mode-accent:#347bd0;--mode-dark:#294c70}
+html[data-theme="orchid"]{--mode-bg:#fff7ff;--mode-side:#f4e9f7;--mode-active:#ead8f0;--mode-soft:#f5eafa;--mode-line:#ead9ed;--mode-accent:#7656c8;--mode-dark:#563d69}
 html[data-theme] body,html[data-theme] .shell{background:var(--mode-bg)}
 html[data-theme] .sidebar{background:var(--mode-side);border-color:var(--mode-line)}
 html[data-theme] .nav-item.active{background:var(--mode-active);color:var(--mode-dark)}
@@ -442,7 +409,7 @@ html[data-theme] .primary:hover,html[data-theme] .start:hover{filter:brightness(
 html[data-theme] .brand-mark span{color:#d9efff}
 html[data-theme] .side-quote,html[data-theme] .encourage{background:var(--mode-soft)}
 html[data-theme] .encourage>span{background:color-mix(in srgb,var(--mode-accent) 18%,white);color:var(--mode-dark)}
-html[data-theme] .encourage b,html[data-theme] .settings-preview b{color:var(--mode-dark)}
+html[data-theme] .encourage b{color:var(--mode-dark)}
 html[data-theme] .stat-icon.mint{background:color-mix(in srgb,var(--mode-accent) 14%,white);color:var(--mode-dark)}
 html[data-theme] .stat-icon.sun{background:color-mix(in srgb,var(--mode-accent) 10%,white);color:var(--mode-dark)}
 html[data-theme] .stat-icon.lilac{background:color-mix(in srgb,var(--mode-accent) 12%,white);color:var(--mode-dark)}
@@ -452,8 +419,6 @@ html[data-theme] .calendar-day.selected{border-color:var(--mode-accent);backgrou
 html[data-theme] .calendar-day.selected>b,html[data-theme] .q-progress>div span.current{background:var(--mode-accent);border-color:var(--mode-accent)}
 html[data-theme] .today-badge{background:var(--mode-soft);border-color:var(--mode-line);color:var(--mode-accent)}
 html[data-theme] .mobile-brand{color:var(--mode-dark)}
-html[data-theme] .settings-icon{background:var(--mode-soft);color:var(--mode-accent)}
-html[data-theme] .settings-preview>span{color:var(--mode-accent)}
 html[data-theme] .sidebar nav .nav-item>span{color:var(--mode-accent)}
 .mistakes-toolbar{margin:-8px 0 13px;padding:10px 12px;display:flex;align-items:center;gap:9px;border:1px solid #dfe9f4;border-radius:9px;background:#fff}
 .mistakes-toolbar label{color:#405f7c;font-size:9px;font-weight:700}
@@ -493,7 +458,7 @@ html[data-theme] .note-edit-button{border-color:var(--mode-line);color:var(--mod
 }
 @media(max-width:650px){html[data-theme] .sidebar{background:var(--mode-side);border-color:var(--mode-line)}}
 
-/* PrivateNote-inspired: calm learning portal, clear type hierarchy, restrained blue. */
+/* Shared learning portal typography and layout. */
 :root{
   font-family:"Malgun Gothic","맑은 고딕","Apple SD Gothic Neo",sans-serif;
   color:#26384a;
@@ -534,7 +499,7 @@ body,button,input,select,textarea{font-family:"Malgun Gothic","맑은 고딕","A
 .section-title h2,.q-progress h2{font-family:inherit;font-size:19px;font-weight:700;color:#26384a}
 .section-title p{font-size:12px;color:#64778a}
 .subtle{padding:9px 12px;font-size:12px}
-.empty-card,.session-card,.wrong-card,.grade-card,.timer-card,.book-card,.settings-panel,.calendar-card{border-color:#dce5ed;border-radius:10px;box-shadow:0 2px 8px #26384a08}
+.empty-card,.session-card,.wrong-card,.grade-card,.timer-card,.book-card,.calendar-card{border-color:#dce5ed;border-radius:10px;box-shadow:0 2px 8px #26384a08}
 .empty-card h3,.session-title h3,.book-card h3,.wrong-head>div b{font-family:inherit;font-size:15px;font-weight:700;color:#26384a}
 .empty-card p,.session-info>p,.session-time small,.session-meter small,.book-card>p{font-size:12px;color:#64778a}
 .primary,.start,.stop,.next{font-size:13px;font-weight:700}
@@ -579,9 +544,6 @@ body,button,input,select,textarea{font-family:"Malgun Gothic","맑은 고딕","A
 .calendar-session-title p,.calendar-session-stats,.calendar-session-actions label{font-size:11px}
 .calendar-session-stats b{font-size:12px}
 .calendar-session-actions .outline{font-size:11px}
-.settings-section-title h2{font-size:17px}
-.settings-section-title p,.theme-copy small,.settings-preview p{font-size:11px}
-.theme-copy b,.settings-preview b{font-size:13px}
 .color-picker-label{font-size:11px}
 .modal h2{font-size:23px}
 .modal-sub{font-size:13px}
@@ -616,10 +578,6 @@ body,button,input,select,textarea{font-family:"Malgun Gothic","맑은 고딕","A
   .calendar-session-title h3{font-size:12px}
   .calendar-session-title p,.calendar-session-stats,.calendar-session-actions label{font-size:9px}
   .calendar-session-stats b{font-size:10px}
-  .settings-section-title h2{font-size:15px}
-  .settings-section-title p{font-size:10px}
-  .theme-copy b{font-size:12px}
-  .theme-copy small{font-size:10px}
 }
 .book-daily{margin:12px 0 10px;padding-top:10px;border-top:1px solid #e5edf5}
 .book-daily h4{margin:0 0 7px;color:#425e78;font-size:11px;font-weight:700}
@@ -690,9 +648,6 @@ body{font-size:16px}
 .calendar-session-title p,.calendar-session-stats,.calendar-session-actions label{font-size:12px}
 .calendar-session-stats b{font-size:13px}
 .calendar-session-actions .outline{font-size:12px}
-.settings-section-title h2{font-size:19px}
-.settings-section-title p,.theme-copy small,.settings-preview p{font-size:12px}
-.theme-copy b,.settings-preview b{font-size:14px}
 .color-picker-label{font-size:12px}
 .modal h2{font-size:25px}
 .modal-sub,.modal label,.modal input,.modal select{font-size:14px}
@@ -731,9 +686,6 @@ body{font-size:16px}
   .calendar-session-title h3{font-size:13px}
   .calendar-session-title p,.calendar-session-stats,.calendar-session-actions label{font-size:10px}
   .calendar-session-stats b{font-size:11px}
-  .settings-section-title h2{font-size:16px}
-  .settings-section-title p,.theme-copy small,.settings-preview p{font-size:11px}
-  .theme-copy b,.settings-preview b{font-size:13px}
   .modal h2{font-size:22px}
   .modal-sub,.modal label,.modal input,.modal select{font-size:13px}
 }
@@ -1165,3 +1117,89 @@ body{font-size:16px}
 .hint-toggle .retry-circles button{border-color:#d2e3c4;background:#f8fcf4;color:#748f63}
 .hint-toggle .retry-circles button.selected{border-color:#9dbb82;background:#c4dda9;color:#35502b}
 .hint-toggle>span{color:#64834d}
+
+/* Make the app's focus on math practice visible in the brand and daily view. */
+.math-mark{position:relative;background:var(--mode-accent,#7656c8);color:#fff;font-family:Georgia,serif;font-size:27px;letter-spacing:-2px}
+.brand-copy small{color:var(--mode-dark,#4e3d78);font-size:10px;letter-spacing:0;font-weight:600}
+.side-caption{color:var(--mode-dark,#4e3d78);font-size:10px;letter-spacing:.5px}
+.side-quote>span{font-family:Georgia,serif;font-size:19px}
+.mobile-brand{gap:8px}
+.mobile-brand>span:last-child{display:grid;gap:1px}
+.mobile-brand b{font-size:12px;line-height:1.1}
+.mobile-brand small{color:var(--mode-dark,#4e3d78);font-size:9px;font-weight:600}
+.mobile-math-mark{width:27px;height:27px;display:grid;place-items:center;border-radius:8px;background:var(--mode-accent,#7656c8);color:white;font:20px Georgia,serif}
+.math-label{margin-right:8px;padding:3px 7px;border-radius:10px;background:var(--mode-soft,#eee9fb);color:var(--mode-dark,#4e3d78);font-size:11px;font-weight:700;letter-spacing:0;text-transform:none}
+@media(max-width:650px){.mobile-brand{display:flex}.mobile-brand small{font-size:8px}.math-label{font-size:10px}}
+
+.account-menu-wrap{position:relative;z-index:7}
+.account-menu-trigger{min-width:38px;height:38px;padding:3px 5px 3px 3px;display:flex;align-items:center;gap:5px;border:1px solid var(--mode-line,#d3e4fa);border-radius:22px;background:#fff;color:var(--mode-dark,#174e8a)}
+.account-menu-trigger>span{width:30px;height:30px;display:grid;place-items:center;border-radius:50%;background:var(--mode-soft,#e1efff);font-size:13px;font-weight:800}
+.account-menu-trigger>i{font-size:12px;font-style:normal}
+.account-dropdown{position:absolute;top:calc(100% + 9px);right:0;z-index:9;width:220px;padding:8px;border:1px solid var(--mode-line,#d3e4fa);border-radius:11px;background:#fff;box-shadow:0 12px 35px #234c7424}
+.account-email{display:block;padding:9px 10px 11px;overflow:hidden;border-bottom:1px solid #eaf0f6;color:#647b91;font-size:11px;text-overflow:ellipsis;white-space:nowrap}
+.account-dropdown>button{width:100%;padding:10px;border:0;border-radius:7px;background:#fff;color:#345b7e;text-align:left;font-size:12px}
+.account-dropdown>button:hover{background:#f2f7fc}
+.account-dropdown>button.account-delete-link{color:#b64137}
+.account-menu-scrim{position:fixed;inset:0;z-index:8;border:0;background:transparent;cursor:default}
+.delete-warning{padding:12px;border:1px solid #f2d9d4;border-radius:8px;background:#fff6f4;color:#93463f;line-height:1.65}
+.danger-eyebrow{color:#b64137}
+.delete-account-button{padding:9px 13px;border:0;border-radius:7px;background:#c7463c;color:white;font-size:12px;font-weight:700}
+.delete-account-button:disabled{background:#c9a09b;cursor:not-allowed}
+.delete-account-button:not(:disabled):hover{background:#aa352e}
+.modal .close:disabled{opacity:.5;cursor:not-allowed}
+@media(max-width:650px){.account-menu-trigger{min-width:34px;height:34px}.account-menu-trigger>span{width:26px;height:26px}.account-dropdown{width:min(220px,calc(100vw - 30px))}.storage .account-menu-wrap{margin-left:2px}}
+
+/* Purple learning palette: keep the layout tokens and page details in one family. */
+:root{--green:#7656c8;--bg:#f8f6ff;--ink:#34294c;--muted:#756b89;--line:#e1daf2}
+html[data-theme] .primary,html[data-theme] .start,html[data-theme] .brand-mark,html[data-theme] .math-mark,html[data-theme] .mobile-math-mark{background:var(--mode-accent,#7656c8);color:#fff}
+html[data-theme] .side-quote>span,html[data-theme] .eyebrow,html[data-theme] .section-title h2,html[data-theme] .q-progress h2{color:var(--mode-dark,#4e3d78)}
+html[data-theme] .calendar-card,html[data-theme] .calendar-report-wrap,html[data-theme] .calendar-report-wrap table{border-color:var(--mode-line);background:#fff}
+html[data-theme] .calendar-toolbar,html[data-theme] .calendar-report th{border-color:var(--mode-line);background:var(--mode-soft);color:var(--mode-dark)}
+html[data-theme] .calendar-day.selected,html[data-theme] .calendar-day.today>b{border-color:var(--mode-accent);background:var(--mode-soft);color:var(--mode-dark)}
+html[data-theme] .calendar-day.selected>b,html[data-theme] .q-progress>div span.current{background:var(--mode-accent);border-color:var(--mode-accent);color:#fff}
+html[data-theme] .calendar-report td,html[data-theme] .calendar-session-stats,html[data-theme] .calendar-report .report-main-cell strong{color:var(--mode-dark)}
+html[data-theme] .calendar-report td,html[data-theme] .calendar-session-actions,html[data-theme] .report-section{border-color:var(--mode-line)}
+html[data-theme] .report-month-toolbar,html[data-theme] .report-summary-grid,html[data-theme] .report-ai-card,html[data-theme] .report-chart{border-color:var(--mode-line)}
+html[data-theme] .report-month-toolbar h2,html[data-theme] .report-section-heading h2,html[data-theme] .report-summary-grid article>b,html[data-theme] .report-ai-heading h2{color:var(--mode-dark)}
+html[data-theme] .report-chart rect{fill:var(--mode-accent)}
+html[data-theme] .report-ai-icon,html[data-theme] .report-ai-overall{background:var(--mode-soft);color:var(--mode-dark)}
+html[data-theme] .report-ai-results article{border-color:var(--mode-line)}
+html[data-theme] .book-design,html[data-theme] .book-0 .book-design,html[data-theme] .book-1 .book-design,html[data-theme] .book-2 .book-design,html[data-theme] .book-3 .book-design{background:var(--mode-soft);color:var(--mode-dark)}
+html[data-theme] .book-cover{background:var(--mode-soft);box-shadow:inset 4px 0 var(--mode-line);color:var(--mode-dark)}
+html[data-theme] .book-subject,html[data-theme] .focus-count,html[data-theme] .grade-summary,html[data-theme] .timer-total{background:var(--mode-soft);color:var(--mode-dark)}
+html[data-theme] .book-metrics,html[data-theme] .book-daily h4,html[data-theme] .book-daily-date,html[data-theme] .book-daily-progress span{color:var(--mode-dark)}
+html[data-theme] .book-daily-row,html[data-theme] .book-daily-empty,html[data-theme] .notes-display>div{background:var(--mode-soft)}
+html[data-theme] .book-daily-progress i,html[data-theme] .progress i,html[data-theme] .session-meter>div i,html[data-theme] .report-progress-bar i{background:var(--mode-accent)}
+html[data-theme] .mistakes-toolbar,html[data-theme] .wrong-card,html[data-theme] .notes textarea,html[data-theme] .notes-display>div{border-color:var(--mode-line)}
+html[data-theme] .wrong-head>span,html[data-theme] .wrong-question-number{border-color:var(--mode-line);background:var(--mode-soft);color:var(--mode-dark)!important}
+html[data-theme] .mistakes-toolbar label,html[data-theme] .wrong-head>div b,html[data-theme] .note-editor-head>span,html[data-theme] .notes-display b,html[data-theme] .notes-display p{color:var(--mode-dark)}
+html[data-theme] .note-edit-button,html[data-theme] .mistake-photo-picker,html[data-theme] .answer-file-link{border-color:var(--mode-line);background:var(--mode-soft);color:var(--mode-dark)}
+html[data-theme] .note-edit-actions .save-note{border-color:var(--mode-accent);background:var(--mode-accent)}
+html[data-theme] .timer,html[data-theme] .timer.running,html[data-theme] .q-number,html[data-theme] .timer-total b{color:var(--mode-dark)}
+html[data-theme] .next,html[data-theme] .mid-grade,html[data-theme] .timer-actions .skip,html[data-theme] .outline{border-color:var(--mode-line);background:var(--mode-soft);color:var(--mode-dark)}
+html[data-theme] .grade-number,html[data-theme] .grade-time>b,html[data-theme] .grade-summary span b{color:var(--mode-dark)}
+html[data-theme] .answers button.correct.chosen{border-color:#b9dec6;background:#e8f5ec;color:#23643b}
+html[data-theme] .month-focus{border-color:var(--mode-line);background:linear-gradient(110deg,var(--mode-soft),#fff 82%)}
+html[data-theme] .month-focus-copy h2,html[data-theme] .month-focus-time,html[data-theme] .month-focus-days{color:var(--mode-dark)}
+html[data-theme] .month-focus-days{border-color:var(--mode-line)}
+html[data-theme] .math-label{background:var(--mode-soft);color:var(--mode-dark)}
+html[data-theme] .account-menu-trigger{border-color:var(--mode-line);color:var(--mode-dark)}
+html[data-theme] .account-menu-trigger>span{background:var(--mode-soft)}
+html[data-theme] .account-dropdown{border-color:var(--mode-line)}
+html[data-theme] .account-dropdown>button{color:var(--mode-dark)}
+html[data-theme] .nav-item.active{background:var(--mode-active);color:var(--mode-dark)}
+@media(max-width:650px){html[data-theme] .sidebar nav{grid-template-columns:repeat(5,minmax(0,1fr))}.nav-item{font-size:8px}.nav-item>span{font-size:15px}}
+html[data-theme] .topbar,html[data-theme] .book-info,html[data-theme] .section-title,html[data-theme] .page-heading,html[data-theme] .selected-day-heading{border-color:var(--mode-line)}
+html[data-theme] .q-progress>div button{border-color:var(--mode-line);color:var(--mode-dark)}
+html[data-theme] .q-progress>div button.timed{border-color:var(--mode-line);background:var(--mode-soft);color:var(--mode-dark)}
+html[data-theme] .calendar-toolbar button,html[data-theme] .month-arrow,html[data-theme] .today-link{border-color:var(--mode-line);color:var(--mode-dark)}
+html[data-theme] .calendar-legend,html[data-theme] .calendar-session-title p,html[data-theme] .calendar-session-actions label{color:var(--mode-dark)}
+html[data-theme] .range-example{background:var(--mode-soft);color:var(--mode-dark)}
+html[data-theme] .grade-card,html[data-theme] .stat-card,html[data-theme] .session-card,html[data-theme] .book-card,html[data-theme] .wrong-card,html[data-theme] .timer-card{border-color:var(--mode-line)}
+html[data-theme] .report-ai-results article>b,html[data-theme] .report-ai-results article>p,html[data-theme] .report-summary-grid article>span,html[data-theme] .report-section-heading p{color:var(--mode-dark)}
+html[data-theme] .report-chart line{stroke:var(--mode-line)}
+html[data-theme] .report-chart text{fill:var(--mode-dark)}
+html[data-theme] .account-email{border-color:var(--mode-line);color:var(--mode-dark)}
+html[data-theme] .account-dropdown>button:hover{background:var(--mode-soft)}
+html[data-theme="orchid"] .sidebar nav .nav-item:hover:not(.active),html[data-theme="orchid"] .sidebar nav .nav-item:focus-visible:not(.active){background:#ead8f0;color:#563d69}
+html[data-theme="orchid"] .sidebar nav .nav-item:hover:not(.active)>span,html[data-theme="orchid"] .sidebar nav .nav-item:focus-visible:not(.active)>span{color:#7656c8}
